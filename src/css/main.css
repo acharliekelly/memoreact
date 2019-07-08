@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px 150px 10px 150px;
+}
+
+.grid-header-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #c9d1f5;
+  padding: 10px;
+}
+
+.grid-item {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.justify-left {
+  text-align: left
+}
+
+.justify-end {
+  text-align: right;
+}
+
+.justify-center {
+  text-align: center;
+}
+
+.logo img {
+  width: 4em;
+  height: 4em;
+  margin-left: 1em;
+}
+
+.sidebar-container {
+  display: grid;
+  grid-template-rows: 100px 100px auto;
+  background-color: #c9d1f5;
+  padding: 10px;
+  border: 1px outset #666;
+  border-radius: 5px;
+  max-width: 20vw;
+}
+
+.label {
+ text-align: left;
+ font-size: 14px;
+ color: #333;
+}
+.counter {
+  text-align: right;
+  color: #5168e9;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button {
+  width: 15em;
+  height: 3em;
+  color: white;
+  background-color: #5168e9;
+  border: 0;
+}
+
+.game-status-text {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(24, 21, 16);
+  font-weight: bold;
+}
+
+.game-options {
+  display: block;
+  width: 200px;
+  height: 100px;
+  z-index: 10;
+}
+
+
+.hide-card {
+  visibility: hidden;
+}
