@@ -1,23 +1,89 @@
-import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import GameBoard from './components/GameBoard';
+import Header from './components/Header';
+import GameOver from './components/GameOver';
+import ScoreKeeper from './components/ScoreKeeper';
+import { deckSelector } from './Deck';
 
-const Dashboard = () => (
-  <div>
-    <h3>Dashboard</h3>
-    <p>This is separate route.</p>
-  </div>
-)
+import './css/main.css';
 
-const App = () => (
-  <div>
-    <nav>
-      <Link to="/dashboard">Dashboard</Link>
-    </nav>
-    <h1>Welcome to React!</h1>
-    <div>
-      <Route path="/dashboard" component={Dashboard}/>
-    </div>
-  </div>
-)
+class App extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      moves: 0,
+      time: 0,
+      start: 0,
+      gameOver: false
+    };
+  }
 
-export default App
+  moveCounter = () => {
+    return this.state.moves;
+  }
+
+  completeMove = () => {
+    this.setState({
+      moves: this.state.moves + 1
+    });
+  }
+
+  startTimer = () => {
+    this.setState({
+      time: this.state.time,
+      start: Date.now()
+    });
+    this.timer = setInterval(() => this.setState({
+      time: Date.now() - this.state.start
+    }), 1000);
+  }
+
+  stopTimer = () => {
+    clearInterval(this.timer);
+  }
+
+  readTimer = () => {
+    return this.time;
+  }
+
+  setGameOver = () => {
+    this.setState({
+      gameOver: true
+    });
+  }
+
+  restartGame = () => {
+    this.setState({
+      moves: 0,
+      time: 0,
+      start: 0,
+      gameOver: false
+    });
+  }
+
+  render () {
+    return (
+      <div className="game-layout">
+        <Header restartGame={this.restartGame} deckSelect={deckSelector} />
+        <ScoreKeeper
+          restartGame={this.restartGame}
+          moveCount={this.moveCounter}
+          startTimer={this.startTimer}
+          readTimer={this.readTimer}
+        />
+        {this.state.gameOver
+          ? <GameOver restartGame={this.restartGame} />
+          : <GameBoard
+            deck="Colors"
+            deckSize="8"
+            moveCounter={this.completeMove}
+            restartGame={this.restartGame}
+            gameOverCallback={this.setGameOver}
+          />
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
