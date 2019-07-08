@@ -10,17 +10,17 @@
       "es6": true
   },
   "rules": {
-    "prefer-const": "error",
-    "no-var": "error",
+    "prefer-const": "warn",
+    "no-var": "warn",
     "semi": [
-      "error",
-      "never"
+      "warn",
+      "always"
     ],
     "quotes": [
       "error",
       "single"
     ],
-    "indent": ["error", 2],
+    "indent": ["warn", 2],
     "react/prop-types": [0]
   }
 }
