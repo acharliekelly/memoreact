@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Card from './Card';
 import { deckSelector } from '../Deck';
+import Grid from '../Grid';
+import GameOver from './GameOver';
 
 import '../css/deck.scss';
 
@@ -22,15 +25,9 @@ class GameBoard extends Component {
       clickCount: 1,
       prevSelectedCard: -1,
       prevCardId: -1,
-      deck: 'Colors'
+      deck: '',
+      grid: ''
     };
-
-    this.init = this.init.bind(this);
-    this.shuffle = this.shuffle.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.isCardMatch = this.isCardMatch.bind(this);
-    this.restartGame = this.restartGame.bind(this);
-    this.isGameOver = this.isGameOver.bind(this);
   }
 
   componentDidMount () {
@@ -38,20 +35,34 @@ class GameBoard extends Component {
   }
 
   init = () => {
-    const size = this.props.deckSize;
+    const { deck, grid } = this.props;
+    const d = deckSelector(deck);
+    const g = Grid.parseGrid(grid);
+    // set board size = # of unique cards in deck * 2 || Grid
+    const size = Math.max(d.max * 2, g.size);
     this.setState({
-      isFlipped: Array(size * 2).fill(false),
+      deck: deck,
+      grid: g.toString(),
+      gridSize: size,
+      isFlipped: Array(size).fill(false),
       clickCount: 1,
       prevSelectedCard: -1,
       prevCardId: -1,
-      shuffledCard: deckSelector('colors').cards
+      shuffledCard: d.cards
     });
   }
 
-  shuffle = () => {
+  newGame = () => {
+    const size = this.state.gridSize;
+    const d = deckSelector(this.state.deck);
     this.setState({
-      shuffledCard: deckSelector(this.props.deck).cards
+      isFlipped: Array(size).fill(false),
+      clickCount: 1,
+      prevSelectedCard: -1,
+      prevCardId: -1,
+      shuffledCard: d.cards
     });
+    this.props.restartGame();
   }
 
   handleClick = event => {
@@ -87,6 +98,7 @@ class GameBoard extends Component {
       hideCard[card1Id] = -1;
       hideCard[card2Id] = -2;
       setTimeout(() => {
+        this.props.remainCounter();
         this.setState(prevState => ({
           shuffledCard: hideCard
         }));
@@ -102,36 +114,44 @@ class GameBoard extends Component {
     this.props.moveCounter();
   }
 
-  restartGame = () => {
-    this.init();
-    this.props.restartGame();
-  }
-
-  isGameOver = () => {
-    const over = this.state.isFlipped.every((element, index, array) => element !== false);
-    if (over) {
-      this.props.gameOverCallback();
+  render () {
+    if (this.props.gameOver) {
+      return (
+        <GameOver restartGame={this.props.restartGame} />
+      );
+    } else {
+      return (
+        <div className={`game-board grid-${this.state.grid} ${this.state.deck}`}>
+          {
+            this.state.shuffledCard.map((cardNumber, index) =>
+              <Card
+                key={index}
+                id={index}
+                cardNumber={cardNumber}
+                isFlipped={this.state.isFlipped[index]}
+                handleClick={this.handleClick}
+              />
+            )
+          }
+        </div>
+      );
     }
   }
-
-  render () {
-    const { deck } = this.props;
-    return (
-      <div className={`game-board ${deck}`}>
-        {
-          this.state.shuffledCard.map((cardNumber, index) =>
-            <Card
-              key={index}
-              id={index}
-              cardNumber={cardNumber}
-              isFlipped={this.state.isFlipped[index]}
-              handleClick={this.handleClick}
-            />
-          )
-        }
-      </div>
-    );
-  }
 }
+
+GameBoard.propTypes = {
+  deck: PropTypes.string.isRequired,
+  grid: PropTypes.string.isRequired,
+  moveCounter: PropTypes.func.isRequired,
+  remainCounter: PropTypes.func.isRequired,
+  restartGame: PropTypes.func.isRequired,
+  gameOver: PropTypes.bool.isRequired
+};
+
+GameBoard.defaultProps = {
+  deck: 'Colors',
+  grid: '4x4',
+  gameOver: false
+};
 
 export default GameBoard;

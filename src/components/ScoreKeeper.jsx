@@ -1,46 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
-class ScoreKeeper extends Component {
-  constructor (props) {
-    super(props);
+const ScoreKeeper = ({ restartGame, userName, movesCount, remainCount }) => (
+  <div className="sidebar-container">
+    <div className="username">
+      <span className="label">User: </span>
+      <span className="user">{userName}</span>
+    </div>
+    <div className="move-counter">
+      <span className="label">Moves: </span>
+      <span className="counter">{movesCount}</span>
+    </div>
+    <div className="remaining">
+      <span className="label">Cards Remaining: </span>
+      <span className="counter">{remainCount}</span>
+    </div>
+    <div className="controls">
+      <Button variant="primary" onClick={restartGame}>Restart</Button>
+    </div>
+  </div>
+);
 
-    this.formatTime = this.formatTime.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-  }
-
-  componentDidMount () {
-    this.props.startTimer();
-  }
-
-  handleReset = event => {
-    event.preventDefault();
-    this.props.restartGame();
-  }
-
-  formatTime = time => {
-    const minutes = parseInt(time / 60);
-    const seconds = time % 60;
-    return `${minutes}:${seconds}`;
-  }
-
-  render () {
-    // const timer = this.formatTime(time);
-    return (
-      <div className="sidebar-container">
-        <div className="move-counter">
-          <span className="label">Moves: </span>
-          <span className="counter">{this.props.moveCount}</span>
-        </div>
-        <div className="timer">
-          <span className="label">Time: </span>
-          <span className="counter">{this.props.readTimer}</span>
-        </div>
-        <div className="controls">
-          <button className="reset-button" onClick={this.handleReset}>Reset</button>
-        </div>
-      </div>
-    );
-  }
-}
+ScoreKeeper.propTypes = {
+  restartGame: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired,
+  movesCount: PropTypes.number.isRequired,
+  remainCount: PropTypes.number.isRequired
+};
 
 export default ScoreKeeper;

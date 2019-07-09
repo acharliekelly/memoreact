@@ -3,10 +3,11 @@
  */
 
  .game-board {
+    grid-area: board;
+
     display: grid;
-    grid-gap: 1px;
-    grid-template-columns: auto auto auto auto;
     padding: 10px 150px 10px 150px;
+    grid-gap: 1px;
 
     .card {
       width: 100%;
@@ -26,6 +27,23 @@
     .card-back {
       background-color: #fff;
     }
+ }
+
+ .grid-4x4 {
+  grid-template-columns: auto auto auto auto;
+ }
+
+ .grid-4x8 {
+  grid-template-columns: auto auto auto auto;
+ }
+
+ .grid-6x6 {
+   grid-template-columns: auto auto auto auto auto auto;
+   
+ }
+
+ .grid-5x5 {
+  grid-template-columns: auto auto auto auto auto;
  }
 
  .Base {
@@ -48,7 +66,7 @@
      }
    }
   .card-front {
-    background-color: #999999;
+    background-color: #999;
   }
   .card-0 {
     background-color: purple;
@@ -74,6 +92,66 @@
   .card-7 {
     background-color: green;
   }
+ }
+
+ .ExtColors {
+   .card {
+     .text {
+       display: none;
+     }
+   }
+   .card-front {
+    background-color: #333;
+  }
+  .card-0 {
+    background-color: #606;
+  }
+  .card-1 {
+    background-color: #f00;
+  }
+  .card-2 {
+    background-color: #00f;
+  }
+  .card-3 {
+    background-color: #ff0;
+  }
+  .card-4 {
+    background-color: #f9f;
+  }
+  .card-5 {
+    background-color: #f90;
+  }
+  .card-6 {
+    background-color: #0ff;
+  }
+  .card-7 {
+    background-color: #090;
+  }
+  .card-8 {
+    background-color: #f0f;
+  }
+  .card-9 {
+    background-color: #660;
+  }
+  .card-10 {
+    background-color: #006;
+  }
+  .card-11 {
+    background-color: #030;
+  }
+  .card-12 {
+    background-color: #600;
+  }
+  .card-13 {
+    background-color: #690;
+  }
+  .card-14 {
+    background-color: #066;
+  }
+  .card-15 {
+    background-color: #09f;
+  }
+
  }
 
  .Shapes {
