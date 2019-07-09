@@ -39,13 +39,13 @@ class Deck {
   // return shuffled cards
   shuffle = () => {
     if (!this.isLoaded()) {
-      this.initialize(this.size);
+      this.initialize(this.max);
     }
     this.cards.sort(() => Math.random() - 0.5);
   }
 
   toString = () => {
-    let str = this.name + ' (' + this.size + ')';
+    let str = this.name + ' (' + this.max + ')';
     str += ' [';
     for (let i = 0; i < this.cards.length; i++) {
       str += this.cards[i] + ',';
@@ -59,14 +59,17 @@ export default Deck;
 
 export const deckSelector = deckName => {
   let deck;
-  switch (deckName.toLowerCase()) {
-  case 'colors':
+  switch (deckName) {
+  case 'Colors':
     deck = new Deck('Colors', 8);
     break;
-  case 'romanov':
+  case 'ExtColors':
+    deck = new Deck('ExtColors', 16);
+    break;
+  case 'Romanov':
     deck = new Deck('Romanov', 16);
     break;
-  case 'shapes':
+  case 'Shapes':
     deck = new Deck('Shapes', 16);
     break;
   default:
