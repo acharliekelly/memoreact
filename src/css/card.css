@@ -1,0 +1,21 @@
+img.card {
+  width: 190px;
+  height: 285px;
+  margin: 5px 10px;
+}
+
+img.faceDown {
+  cursor: pointer;
+}
+
+img.faceUp {
+  cursor: not-allowed;
+}
+
+img.unmatched {
+  opacity: 1;
+}
+
+img.matched {
+  opacity: 0.6;
+}
