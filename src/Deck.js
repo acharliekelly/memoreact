@@ -5,17 +5,12 @@
  *  max: number of unique cards. Deck will contain 2x this number
  *  cards: int array
  */
-class Deck {
+export default class Deck {
   constructor (deckName, maxSize) {
     this.name = deckName;
     this.max = maxSize;
+    this.listView = `${deckName} (${maxSize})`;
     this.cards = [];
-
-    this.shuffle = this.shuffle.bind(this);
-    this.initialize = this.initialize.bind(this);
-    this.getStack = this.getStack.bind(this);
-    this.isLoaded = this.isLoaded.bind(this);
-    this.toString = this.toString.bind(this);
   }
 
   // populate cards with 0 to size, twice
@@ -33,7 +28,13 @@ class Deck {
 
   // return some cards
   getStack = size => {
-    return this.cards.slice(0, size);
+    if (size > this.max * 2) {
+      const diff = size - this.max * 2;
+      this.cards.push(this.cards.slice(0, diff));
+      return this.cards;
+    } else {
+      return this.cards.slice(0, size);
+    }
   }
 
   // return shuffled cards
@@ -55,7 +56,13 @@ class Deck {
   }
 }
 
-export default Deck;
+export const Decks = [
+  new Deck('Base', 8),
+  new Deck('Colors', 8),
+  new Deck('ExtColors', 16),
+  new Deck('Romanov', 16),
+  new Deck('Shapes', 16)
+];
 
 export const deckSelector = deckName => {
   let deck;
