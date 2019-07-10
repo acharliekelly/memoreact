@@ -1,11 +1,14 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Decks } from '../Deck';
+import { Grids } from '../Grid';
 
 const Header = ({ currentDeck, deckChange, currentSize, sizeChange }) => (
   <div className="grid-header-container">
     <div className="justify-left logo">
       <img alt="Logo" src="memore.png" />
+      <span className="title">Memory Game</span>
     </div>
     <div className="justify-left">
       <Dropdown onSelect={sizeChange}>
@@ -13,9 +16,9 @@ const Header = ({ currentDeck, deckChange, currentSize, sizeChange }) => (
           {currentSize}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item eventKey="4x4">4 x 4</Dropdown.Item>
-          <Dropdown.Item eventKey="4x8">4 x 8</Dropdown.Item>
-          <Dropdown.Item eventKey="6x6" disabled="true">6 x 6</Dropdown.Item>
+          {Grids.map(grid => (
+            <Dropdown.Item key={grid.name} eventKey={grid.name}>{grid.listView}</Dropdown.Item>
+          ))}
         </Dropdown.Menu>
       </Dropdown>
     </div>
@@ -25,10 +28,9 @@ const Header = ({ currentDeck, deckChange, currentSize, sizeChange }) => (
           {currentDeck}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item eventKey="Colors">Colors (8)</Dropdown.Item>
-          <Dropdown.Item eventKey="ExtColors">Colors (16)</Dropdown.Item>
-          <Dropdown.Item eventKey="Shapes">Shapes (16)</Dropdown.Item>
-          <Dropdown.Item eventKey="Romanov">Romanov (16)</Dropdown.Item>
+          {Decks.map(deck => (
+            <Dropdown.Item key={deck.name} eventKey={deck.name}>{deck.listView}</Dropdown.Item>
+          ))}
         </Dropdown.Menu>
       </Dropdown>
     </div>

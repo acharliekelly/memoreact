@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 
 const ScoreKeeper = ({ restartGame, userName, movesCount, remainCount }) => (
   <div className="sidebar-container">
+    <header>Score Keeper</header>
     <div className="username">
       <span className="label">User: </span>
       <span className="user">{userName}</span>

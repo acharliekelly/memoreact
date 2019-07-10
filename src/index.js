@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import gameApp from './reducers';
 import './css/index.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './App';
+import App from './components/App';
 
 const store = createStore(gameApp);
 
