@@ -7,7 +7,8 @@ body {
   grid-template-areas: "head head"
                        "score board";
   grid-template-rows: 10vh 1fr;
-  grid-template-columns: 20vw 1fr;
+  grid-template-columns: 15vw 1fr;
+  grid-gap: 5px;
 }
 
 .grid-header-container {
@@ -17,6 +18,14 @@ body {
   grid-template-columns: auto auto auto;
   background-color: #c9d1f5;
   padding: 10px;
+  border: 1px outset #666;
+  border-radius: 5px;
+}
+
+.grid-header-container .title {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .deck-name {
@@ -56,6 +65,14 @@ body {
   border: 1px outset #666;
   border-radius: 5px;
 }
+.sidebar-container header {
+  font-size: 1.5em;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+.sidebar-container .controls {
+  text-align: center;
+}
 
 .label {
  text-align: left;
@@ -67,14 +84,6 @@ body {
   color: #5168e9;
   font-size: 16px;
   font-weight: bold;
-}
-
-button {
-  width: 15em;
-  height: 3em;
-  color: white;
-  background-color: #5168e9;
-  border: 0;
 }
 
 .game-status-text {
