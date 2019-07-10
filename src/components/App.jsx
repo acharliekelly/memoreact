@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import GameBoard from './components/GameBoard';
-import Header from './components/Header';
-import ScoreKeeper from './components/ScoreKeeper';
+import GameBoard from './GameBoard';
+import Header from './Header';
+import ScoreKeeper from './ScoreKeeper';
+import Grid from '../Grid';
 
-import './css/main.css';
+import '../css/main.css';
 
 class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      deck: 'Colors',
-      grid: '4x4',
-      boardSize: 16,
+      deck: 'ExtColors',
+      grid: '4x8',
+      boardSize: 32,
       moves: 0,
-      remaining: 16,
+      remaining: 32,
       gameOver: false
     };
   }
@@ -61,20 +62,10 @@ class App extends Component {
 
   handleSizeChange = (eventKey, event) => {
     console.log('Board size changed to ' + eventKey);
-    let board = 16;
-    switch (eventKey) {
-    case '4x8':
-      board = 32;
-      break;
-    case '6x6':
-      board = 36;
-      break;
-    default:
-      board = 16;
-    }
+    const g = Grid.parse(eventKey);
     this.setState({
       grid: eventKey,
-      boardSize: board
+      boardSize: g.size
     });
   }
 
