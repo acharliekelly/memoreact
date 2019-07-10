@@ -37,12 +37,12 @@ class GameBoard extends Component {
   init = () => {
     const { deck, grid } = this.props;
     const d = deckSelector(deck);
-    const g = Grid.parseGrid(grid);
+    const g = Grid.parse(grid);
     // set board size = # of unique cards in deck * 2 || Grid
     const size = Math.max(d.max * 2, g.size);
     this.setState({
       deck: deck,
-      grid: g.toString(),
+      grid: g.name,
       gridSize: size,
       isFlipped: Array(size).fill(false),
       clickCount: 1,
