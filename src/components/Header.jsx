@@ -17,7 +17,13 @@ const Header = ({ currentDeck, deckChange, currentSize, sizeChange }) => (
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {Grids.map(grid => (
-            <Dropdown.Item key={grid.name} eventKey={grid.name}>{grid.listView}</Dropdown.Item>
+            <Dropdown.Item
+              key={grid.name}
+              eventKey={grid.name}
+              active={grid.name === currentSize}
+            >
+              {grid.listView}
+            </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
@@ -29,7 +35,13 @@ const Header = ({ currentDeck, deckChange, currentSize, sizeChange }) => (
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {Decks.map(deck => (
-            <Dropdown.Item key={deck.name} eventKey={deck.name}>{deck.listView}</Dropdown.Item>
+            <Dropdown.Item
+              key={deck.name}
+              eventKey={deck.name}
+              active={deck.name === currentDeck}
+            >
+              {deck.listView}
+            </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
