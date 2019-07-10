@@ -10,11 +10,11 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      deck: 'ExtColors',
-      grid: '4x8',
-      boardSize: 32,
+      deck: 'Colors',
+      grid: '4x4',
+      boardSize: 16,
       moves: 0,
-      remaining: 32,
+      remaining: 16,
       gameOver: false
     };
   }
