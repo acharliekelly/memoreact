@@ -5,6 +5,7 @@ body {
 .game-layout {
   display: grid;
   grid-template-areas: "head head"
+                       "options board"
                        "score board";
   grid-template-rows: 10vh 1fr;
   grid-template-columns: 15vw 1fr;
@@ -55,11 +56,25 @@ body {
   margin-left: 1em;
 }
 
+.game-options {
+  grid-area: options;
+  
+  /* background-color: #c9d1f5; */
+  padding: 10px;
+  /* border: 1px outset #666;
+  border-radius: 5px; */
+}
+.game-options header {
+  font-size: 1.5em;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+
 .sidebar-container {
   grid-area: score;
 
   display: grid;
-  grid-template-rows: 100px 100px auto;
+  grid-template-rows: 100px auto auto;
   background-color: #c9d1f5;
   padding: 10px;
   border: 1px outset #666;
