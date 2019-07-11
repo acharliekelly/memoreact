@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import Header from './Header';
 import ScoreKeeper from './ScoreKeeper';
-import Grid from '../Grid';
+import GameOptions from './GameOptions';
+
+import Options from '../model/Options';
 
 import '../css/main.css';
 
@@ -10,13 +12,26 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      deck: 'Colors',
-      grid: '4x4',
-      boardSize: 16,
+      options: Options.defaultOptions(),
       moves: 0,
-      remaining: 16,
+      remaining: 0,
       gameOver: false
     };
+  }
+
+  init = () => {
+    if (!this.state.options) {
+      this.setState({
+        options: Options.defaultOptions()
+      });
+    }
+    this.setState({
+      remaining: this.state.options.getBoardSize()
+    });
+  }
+
+  componentDidMount () {
+    this.init();
   }
 
   moveCounter = () => {
@@ -38,7 +53,7 @@ class App extends Component {
       remaining: this.state.remaining - 2
     });
 
-    if (this.state.remaining === 0) {
+    if (this.state.remaining < 1) {
       this.setState({
         gameOver: true
       });
@@ -48,37 +63,22 @@ class App extends Component {
   restartGame = () => {
     this.setState({
       moves: 0,
-      remaining: this.state.boardSize,
+      remaining: this.state.options.getBoardSize(),
       gameOver: false
     });
   }
 
-  handleDeckChange = (eventKey, event) => {
-    console.log('Deck changed to ' + eventKey);
-    this.setState({
-      deck: eventKey
-    });
-  }
-
-  handleSizeChange = (eventKey, event) => {
-    console.log('Board size changed to ' + eventKey);
-    const g = Grid.parse(eventKey);
-    this.setState({
-      grid: eventKey,
-      boardSize: g.size
-    });
+  handleOptionSubmit = event => {
+    // TODO: change options, restart
+    console.log('Options updated');
   }
 
   render () {
-    const { grid, deck, moves, remaining, gameOver } = this.state;
+    const { options, moves, remaining, gameOver } = this.state;
     return (
       <div className="game-layout">
-        <Header
-          currentDeck={deck}
-          deckChange={this.handleDeckChange}
-          currentSize={grid}
-          sizeChange={this.handleSizeChange}
-        />
+        <Header restartGame={this.restartGame} />
+        <GameOptions options={options} submitHandler={this.handleOptionSubmit} />
         <ScoreKeeper
           restartGame={this.restartGame}
           movesCount={moves}
@@ -86,8 +86,8 @@ class App extends Component {
           userName='User Name'
         />
         <GameBoard
-          deck={deck}
-          grid={grid}
+          deck={options.theme}
+          grid={options.grid}
           gameOver={gameOver}
           moveCounter={this.completeMove}
           remainCounter={this.completeMatch}
