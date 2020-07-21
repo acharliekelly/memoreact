@@ -1,6 +1,6 @@
 {
-  "name": "react-template",
-  "homepage": "https://github.io/<GH USER NAME>/<REPO NAME>",
+  "name": "memoreact",
+  "homepage": "https://acharliekelly.github.io/memoreact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,9 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-card-flip": "^0.8.0",
     "react-dom": "^16.4.2",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^4.3.1",
+    "redux": "^4.0.5",
     "resolve": "1.6.0",
     "url-loader": "0.6.2"
   },
