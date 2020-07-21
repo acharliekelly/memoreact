@@ -1,23 +1,35 @@
-/*
- *  Action Types
- */
-
-export const RESTART_GAME = 'RESTART_GAME';
-export const CHANGE_DECK = 'CHANGE_DECK';
-export const RESIZE_BOARD = 'RESIZE_BOARD';
+import * as ACTIONS from './actionTypes';
 
 /*
  * Action Creators
  */
 
-export function retartGame () {
-  return { type: RESTART_GAME };
+export function restartGame () {
+  return { type: ACTIONS.RESTART_GAME };
 }
 
 export function changeDeck (deck) {
-  return { type: CHANGE_DECK, deck };
+  return { type: ACTIONS.CHANGE_DECK, deck };
 }
 
-export function resizeBoard (grid) {
-  return { type: RESIZE_BOARD, grid };
+export function resizeBoard (gridSize) {
+  return { type: ACTIONS.RESIZE_GRID, gridSize };
+}
+
+export function flipCard (index) {
+  return {
+    type: ACTIONS.FLIP_CARD,
+    index
+  };
+}
+
+export function checkMatch (index) {
+  return { 
+    type: ACTIONS.CHECK_MATCH,
+    index
+  };
+}
+
+export function showWin () {
+  return { type: ACTIONS.SHOW_WIN };
 }
