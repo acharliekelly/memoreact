@@ -1,7 +1,5 @@
 .game-board {
   grid-area: board;
-  
-  background-color: #1E5C81;
   display: flex;
   flex-wrap: wrap;
 }
@@ -10,4 +8,8 @@
   font-size: 20px;
   font-family: sans-serif;
   color: black;
+}
+
+.romanov .game-board {
+  background-color: #1E5C81;
 }
