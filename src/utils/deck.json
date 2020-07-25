@@ -1,0 +1,55 @@
+{
+  "decks": {
+    "colors": {
+      "id": "colors",
+      "title": "Colors",
+      "images": false,
+      "background": "#fff",
+      "cardBack": "#000",
+      "faces": [
+        "#600", "#c00", "#060", "#0c0", "#006", "#00c",
+        "#660", "#6c0", "#cc0", "#c60", "#066", "#06c",
+        "#0c6", "#0cc", "#606", "#c0c", "#60c", "#c06"
+      ]
+    },
+    "shapes": {
+      "id": "shapes",
+      "title": "Shapes",
+      "images": true,
+      "background": "#fff",
+      "cardBack": "#900",
+      "faces": [
+        "blue-cube.png", "blue-square.png", "cyan-diamond.png", "gold-star.png",
+        "green-blotch.png", "green-triangle.png", "orange-hexagon.png", "pink-square.png",
+        "purple-compass.png", "purple-ring.png", "purple-octagon", "red-circle.png", 
+        "red-heart.png", "red-star.png", "turq-hexagon.png", "yellow-square.png"
+      ]
+    },
+    "romanov": {
+      "id": "romanov",
+      "title": "Russian",
+      "images": true,
+      "background": "#2574B6",
+      "cardBack": "back.jpg",
+      "faces": [
+        "ace-clubs.jpg", "ace-diamonds.jpg", "ace-hearts.jpg", "ace-spades.jpg",
+        "jack-clubs.jpg", "jack-diamonds.jpg", "jack-hearts.jpg", "jack-spades.jpg",
+        "queen-clubs.jpg", "queen-diamonds.jpg", "queen-hearts.jpg", "queen-spades.jpg",
+        "king-clubs.jpg", "king-diamonds.jpg", "king-hearts.jpg", "king-spades.jpg"
+      ]
+    },
+    "tech": {
+      "id": "tech",
+      "title": "Technology",
+      "images": true,
+      "background": "#fff",
+      "cardBack": "#000",
+      "faces": [
+        "bootstrap.png", "css3.png", "firebase.png", "github.png",
+        "grunt.png", "heroku.png", "html5.png", "jest.png",
+        "js.png", "mongodb.png", "node.png", "npm.png",
+        "react.png", "redux.png", "storybook.png", "webpack.png"
+      ]
+    }
+  }
+}
