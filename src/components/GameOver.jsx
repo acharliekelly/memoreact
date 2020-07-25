@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+// import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 const GameOver = ({ restartGame }) => (
   <div className="justify-center">
@@ -8,9 +8,5 @@ const GameOver = ({ restartGame }) => (
     <Button variant="primary" onClick={restartGame}>Restart</Button>
   </div>
 );
-
-GameOver.propTypes = {
-  restartGame: PropTypes.func.isRequired
-};
 
 export default GameOver;
