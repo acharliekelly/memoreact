@@ -4,12 +4,20 @@ import * as ACTIONS from './actionTypes';
  * Action Creators
  */
 
+export function startGame (deckId, gridSize) {
+  return {
+    type: ACTIONS.START_GAME,
+    deckId,
+    gridSize
+  }
+}
+
 export function restartGame () {
   return { type: ACTIONS.RESTART_GAME };
 }
 
-export function changeDeck (deck) {
-  return { type: ACTIONS.CHANGE_DECK, deck };
+export function changeDeck (deckId) {
+  return { type: ACTIONS.CHANGE_DECK, deckId };
 }
 
 export function resizeBoard (gridSize) {
