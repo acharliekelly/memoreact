@@ -1,7 +1,4 @@
-import decks from './deck.json';
-import * as SHAPES_IMGS from '../css/images/shapes/';
-import * as ROMANOV_IMGS from '../css/images/romanov/';
-import * as TECH_IMGS from '../css/images/tech/';
+import { decks } from './deck.json';
 
 export const DEFAULT_DECK = 'colors';
 export const DEFAULT_GRID = '4x4';
@@ -16,7 +13,9 @@ export const GridOptions = {
   '5x6': [5,6]
 };
 
-export const DeckOptions = decks;
+export const getDeck = deckId => {
+  return decks[deckId];
+}
 
 export const GameTile = (cardVal = 0) => ({
   value: cardVal,
@@ -24,21 +23,26 @@ export const GameTile = (cardVal = 0) => ({
   matched: false
 });
 
+/**
+ * The shape of State
+ */
 export const initialState = {
-  deck: DeckOptions[DEFAULT_DECK],
+  deckId: DEFAULT_DECK,
+  deck: {},
   gridSize: DEFAULT_GRID,
   moves: 0,
   matches: 0,
   tiles: [],  // { value: int, flipped: bool, matched: bool }
   secondFlip: false,
-  gameOver: false
+  gameOver: false,
+  timer: null
 };
 
 /**
  * get array of tiles { value: int, flipped: bool, matched: bool }
  * @param {String} gridSize the size of the board, eg '2x2'
  */
-export const initBoard = gridSize => {
+export const initTiles = gridSize => {
   const [boardColumns, boardRows] = GridOptions[gridSize];
   const boardSize = boardColumns * boardRows;
   const values = boardSize / 2;
@@ -49,6 +53,13 @@ export const initBoard = gridSize => {
     tiles.push(tile, tile);
   }
   return shuffle(tiles);
+}
+
+export const initGame = (deckId = DEFAULT_DECK, gridSize = DEFAULT_GRID) => {
+  return Object.assign({}, initialState, {
+    tiles: initTiles(gridSize),
+    deck: getDeck(deckId)
+  })
 }
 
 
@@ -64,56 +75,13 @@ const shuffle = array => {
   return newArray;
 }
 
-const getDeckImages = deckId => {
-  let imgs;
-  switch (deckId) {
-    case 'shapes':
-      imgs = SHAPES_IMGS;
-      break;
-    case 'romanov':
-      imgs = ROMANOV_IMGS;
-      break;
-    case 'tech':
-      imgs = TECH_IMGS;
-      break;
-    default:
-      imgs = [];
-  }
-  return imgs;
+export const getDeckCls = deckId => {
+  return `game-board ${deckId}`;
 }
 
-
-export const getCardBackStyle = deckId => {
-  // from css/images/deckId
-  const back = decks[deckId].cardBack;
-  const imgs = getDeckImages(deckId);
-  if (back.startsWith('#')) {
-    return {
-      backgroundColor: back
-    }
-  } else {
-    return {
-      backgroundImage: imgs[back]
-    }
-  }
+export const getCardCls = cardValue => {
+  return `card card-${cardValue}`
 }
-
-export const getCardFrontStyle = (deckId, cardValue, isMatched) => {
-  const deck = decks[deckId];
-  const imgs = getDeckImages(deckId);
-  const value = deck.faces[cardValue];
-  const style = {
-    opacity: isMatched ? 0.7 : 1
-  };
-  if (!deck.images) {
-    style.backgroundColor = deck.faces[cardValue]
-  } else {
-    style.backgroundColor = 'white';
-    style.backgroundImage = imgs[value];
-  }
-  return style;
-}
-
 
 const flipped = tiles => {
   return tiles.filter(tile => tile.flipped && !tile.matched);
@@ -138,20 +106,69 @@ export const isMatched = tiles => {
   return false;
 }
 
-// No Mutation - dispatched by gameReducer
+// No Mutation - dispatched by reducer
 export const noMatchFound = tiles => {
   const items = Array.from(tiles);
   items.forEach(item => {
-    item.flipped = false
+    if (item.flipped && !item.matched) item.flipped = false
   });
   return items;
 }
 
-// No Mutation - dispatched by gameReducer
+// No Mutation - dispatched by reducer
 export const matchFound = tiles => {
   const items = Array.from(tiles);
   items.forEach(item => {
     item.matched = item.flipped;
   });
   return items;
+}
+
+
+export const getCloudFace = (deck, cardValue) => {
+  const image = deck.faces[cardValue];
+  return getCloudImageUrl(deck.id, image, deck.imgWidth);
+}
+
+export const getCloudBack = deck => {
+  return getCloudImageUrl(deck.id, deck.cardBack, deck.imgWidth);
+}
+
+const getCloudImageUrl = (deckId, imageId, width = 100) => {
+  return `https://res.cloudinary.com/cantimaginewhy/w_${width}/memory/decks/${deckId}/${imageId}`;
+}
+
+export const getCardStyle = (deck, tile) => {
+  return tile.flipped ?
+    getCardFrontStyle(deck, tile) : getCardBackStyle(deck);
+}
+
+export const getCardFrontStyle = (deck, tile) => {
+  const style = Object.assign({}, deck.cardStyle);
+  style.opacity = tile.matched ? 0.7 : 1;
+  
+  if (deck.hasImages) {
+    // images
+    const img = getCloudFace(deck, tile.value);
+    style.backgroundColor = deck.background;
+    style.backgroundImage = `url(${img})`;
+  } else {
+    // color
+    style.backgroundColor = deck.faces[tile.value];
+  }
+  return style;
+}
+
+export const getCardBackStyle = deck => {
+  // show back
+  const style = Object.assign({}, deck.cardStyle);
+  if (deck.cardBack.startsWith('#')) {
+    style.backgroundColor = deck.cardBack;
+  } else {
+    // cardBack is image
+    const img = getCloudBack(deck);
+    style.backgroundColor = deck.background;
+    style.backgroundImage = `url(${img}`;
+  }
+  return style;
 }
