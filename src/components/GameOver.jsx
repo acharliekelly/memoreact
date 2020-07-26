@@ -1,12 +1,29 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-const GameOver = ({ restartGame }) => (
-  <div className="justify-center">
-    <h1>You Win!</h1>
-    <Button variant="primary" onClick={restartGame}>Restart</Button>
-  </div>
-);
+const GameOver = ({ restartGame }) => {
+  const [ show, setShow ] = useState(true);
+  const handleClose = () => setShow(false);
+  const restart = () => {
+    handleClose();
+    restartGame();
+  }
+
+  return (
+    <Modal show={show} onHide={handleClose} backdrop="static">
+      <Modal.Header closeButton>
+        <Modal.Title>You Win!</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        Want to play again?
+        <Button variant="primary" onClick={restart}>Restart</Button>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 export default GameOver;
