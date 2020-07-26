@@ -1,7 +1,7 @@
 /*
  *  Action Types
  */
-
+export const START_GAME = 'START_GAME';
 export const RESTART_GAME = 'RESTART_GAME';
 export const CHANGE_DECK = 'CHANGE_DECK';
 export const RESIZE_GRID = 'RESIZE_GRID';
