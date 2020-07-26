@@ -1,11 +1,13 @@
-import { connect } from 'redux';
+import { connect } from "react-redux";
 import { 
   changeDeck,
-  resizeBoard
-} from '../actions';
+  resizeBoard,
+  restartGame
+} from '../redux/actions/';
+import { initialState } from '../utils/boardLogic';
 import Header from '../components/Header';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state = initialState) => ({
   boardSize: state.gridSize,
   currentDeck: state.deck,
   moves: state.moves,
@@ -14,7 +16,8 @@ const mapStateToProps = state => ({
 
 const actionCreators = {
   updateDeck: changeDeck, 
-  updateBoardSize: resizeBoard
+  updateBoardSize: resizeBoard,
+  restartGame
 };
 
 export default connect(mapStateToProps, actionCreators)(Header);
