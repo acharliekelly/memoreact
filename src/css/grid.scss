@@ -17,16 +17,3 @@
 .grid-6x6 {
    grid-template-columns: auto auto auto auto auto auto;
  }
-
- .Base {
-   .card {
-     .text {
-      font-weight: bold;
-      color: #000;
-      display: inline;
-     }
-   }
-   .card-front {
-    background-color: #666;
-   }
- }
