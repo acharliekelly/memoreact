@@ -15,8 +15,8 @@ const GameOver = ({ restartGame }) => {
       <Modal.Header closeButton>
         <Modal.Title>You Win!</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        Want to play again?
+      <Modal.Body className="justify-content-between">
+        <div>Want to play again?</div>
         <Button variant="primary" onClick={restart}>Restart</Button>
       </Modal.Body>
       <Modal.Footer>
